@@ -1,3 +1,5 @@
+const targetAddress = new URL(process.env.TARGET_ADDRESS || `http://blog.joshwalsh.local`);
+
 module.exports = {
 	siteMetadata: {
 		// Update these and enjoy :)
@@ -54,5 +56,24 @@ module.exports = {
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		`gatsby-plugin-sass`,
+		{
+			resolve: `gatsby-plugin-s3`,
+			options: {
+					bucketName: process.env.TARGET_BUCKET_NAME || "fake-bucket",
+					region: process.env.AWS_REGION,
+					protocol: targetAddress.protocol.slice(0, -1),
+					hostname: targetAddress.hostname,
+					acl: null,
+					params: {
+							// In case you want to add any custom content types: https://github.com/jariz/gatsby-plugin-s3/blob/master/recipes/custom-content-type.md
+					},
+			},
+		},
+		{
+			resolve: `gatsby-plugin-canonical-urls`,
+			options: {
+					siteUrl: targetAddress.href.slice(0, -1),
+			},
+		}
 	],
 }

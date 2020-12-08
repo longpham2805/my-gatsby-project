@@ -57,7 +57,7 @@ module.exports = {
 		`gatsby-plugin-sharp`,
 		`gatsby-plugin-sass`,
 		{
-			resolve: `gatsby-plugin-s3`,
+			resolve: `gatsby-plugin-s3-html-last`,
 			options: {
 					bucketName: process.env.TARGET_BUCKET_NAME || "fake-bucket",
 					region: process.env.AWS_REGION,
